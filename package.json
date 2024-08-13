@@ -1,0 +1,58 @@
+{
+  "info": {
+    "displayName": "QuickAuth",
+    "displayVersion": "0.0.1-indev",
+    "displayAppID": "QuickAuth"
+  },
+  "name": "quick-auth",
+  "version": "0.0.1-indev",
+  "description": "Get your OTPs!",
+  "author": "Jo",
+  "license": "UNLICENSED",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "build": "electron-builder build"
+  },
+  "devDependencies": {
+    "electron": "^29.4.5",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "productName": "QuickAuth",
+    "appId": "QuickAuth",
+    "copyright": "Copyright © 2024 ${author}",
+    "directories": {
+      "output": "release_${version}"
+    },
+    "files": [
+      "!.database/**/*",
+      "!.git/**/*",
+      "!.github/**/*",
+      "!.gitignore",
+      "!README.md",
+      "!TODO"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "./icons/icon.ico",
+      "asar": true
+    },
+    "nsis": {
+      "artifactName": "${productName}_${version}_setup.exe",
+      "installerIcon": "./icons/icon.ico",
+      "installerHeaderIcon": "./icons/icon.ico",
+      "uninstallDisplayName": "${productName}",
+      "oneClick": true,
+      "createDesktopShortcut": true,
+      "shortcutName": "${productName}",
+      "runAfterFinish": true,
+      "deleteAppDataOnUninstall": false,
+      "include": "./installer.nsh"
+    }
+  },
+  "dependencies": {
+    "speakeasy": "^2.0.0"
+  }
+}

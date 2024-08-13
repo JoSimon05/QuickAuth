@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="win.css">
+    </head>
+
+    <body>
+
+        <div id="win-header">
+
+            <div id="message-container">
+                <p id="message"></p>
+            </div>
+
+            <div id="close-button">
+                <img src="../icons/win-default-icons/close-black.ico" id="close-black" draggable="false">
+            </div>
+        </div>
+
+        <div id="input-view" style="display: none;">
+
+            <div id="input-container">
+
+                <input type="text" id="name-input" placeholder="Account Name">
+                <input type="text" id="key-input" placeholder="Setup Key">
+
+                <div id="button-container">
+                    <input type="button" id="cancel-button" value="Cancel">
+                    <input type="button" id="done-button" value="Done">
+                    
+                    <p id="input-alert"></p>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="account-view">
+
+            <div id="account-container">
+    
+                <button id="add-button">
+                    <img src="../icons/add.ico" draggable="false">
+                </button>
+    
+                <select id="account-select"></select>
+        
+                <button id="delete-button">
+                    <img src="../icons/delete.ico" draggable="false">
+                </button>
+            </div>
+    
+            <div id="code-container">
+                <div id="delete-bar"></div>
+                <p id="code"></p>
+            </div>
+        </div>
+
+
+        <script src="win.js"></script>
+
+    </body>
+</html>
