@@ -310,13 +310,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (nameInput.value == accounts[i].text) {
                 doesExists = true
-                showAlert("Name already in use!")
+                showAlert("Name already in use!", "name")
                 break
             }
 
             if (keyInput.value == accounts[i].value) {
                 doesExists = true
-                showAlert("Key already in use!")
+                showAlert("Key already in use!", "key")
                 break
             }
         }
@@ -343,14 +343,17 @@ document.addEventListener("DOMContentLoaded", () => {
         ipcRenderer.send("setAccount", { name: nameInput.value, key: keyInput.value })
     }
 
-    // FUNCTION: show alert if already exists
-    function showAlert(alert) {
+    // FUNCTION: show alert if parameters already exist
+    function showAlert(alert, input) {
 
         inputAlert.innerText = alert
 
         cancelButton.style.display = "none"
         doneButton.style.display = "none"
         inputAlert.style.display = "block"
+
+        nameInput.disabled = true
+        keyInput.disabled = true
 
         setTimeout(() => {
             cancelButton.style.display = "block"
@@ -359,7 +362,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
             inputAlert.innerText = ""
 
-        }, 1500);
+            nameInput.disabled = false
+            keyInput.disabled = false
+    
+            if (input == "name") nameInput.focus()
+            if (input == "key") keyInput.focus()
+
+        }, 1000);
     }
 
     // FUNCTION: generate 30s timed otp

@@ -75,8 +75,8 @@ function checkDataStructure() {
         const lastAccounts = data.accounts
 
         const lastData = {
-            selected: lastSelected,
-            accounts: lastAccounts
+            selected: lastSelected ? lastSelected : defaultData.selected,
+            accounts: lastAccounts ? lastAccounts : defaultData.accounts
         }
 
         // update data file
@@ -124,7 +124,7 @@ if (!instanceLock) {
 
     // execute if app is already running
     app.on("second-instance", () => {
-        return //TODO VERIFICA!!
+        win.focus()
     })
 
     // execute when app is ready
@@ -160,6 +160,17 @@ if (!instanceLock) {
         win.loadFile("src/win.html")
 
         win.webContents.on("did-finish-load", () => {
+
+            // correct selected option
+            if (data.accounts.length != 0) {
+
+                if (!data.accounts.some(a => a["key"] === data.selected)) {
+                    data.selected = data.accounts[0].key
+                }
+
+            } else data.selected = ""
+
+            updateDataFile()
 
             // IPC: send "sortlist" event (startup)
             win.webContents.send("sortList", { accounts: data.accounts, selected: data.selected, startup: true })
