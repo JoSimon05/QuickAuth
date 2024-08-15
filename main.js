@@ -1,5 +1,6 @@
 
-const { app, BrowserWindow, ipcMain } = require("electron")
+const { app, BrowserWindow, dialog, nativeImage, ipcMain } = require("electron")
+const { autoUpdater } = require("electron-updater")
 const fs = require("fs")
 const path = require("path")
 const { name, info, version } = require("./package.json")
@@ -21,7 +22,6 @@ const dataFolderPath = path.join(appFolder, dataFolder)
 
 const checkDataFilePath = isDev ? dataFilePathDev : dataFilePath
 const checkDataFolderPath = isDev ? dataFolderPathDev : dataFolderPath
-
 
 // default data file structure
 const defaultData = {
@@ -100,6 +100,10 @@ let data = JSON.parse(fs.readFileSync(checkDataFilePath))
 checkDataStructure() // check data file structure
 
 
+// about icons
+const logo = nativeImage.createFromPath(path.join(__dirname, "icons", "logo.ico"))
+const updateIcon = nativeImage.createFromPath(path.join(__dirname, "icons", "update.ico"))
+
 // about window
 let win
 
@@ -120,7 +124,7 @@ if (!instanceLock) {
 
     // execute if app is already running
     app.on("second-instance", () => {
-        showInputWindow()
+        return //TODO VERIFICA!!
     })
 
     // execute when app is ready
@@ -129,6 +133,7 @@ if (!instanceLock) {
         win = new BrowserWindow({
 
             title: info.displayName,
+            icon: logo,
 
             width: 210,
             height: 130,
@@ -170,6 +175,8 @@ if (!instanceLock) {
             win.setEnabled(false)
             win.setEnabled(true)
         })
+
+        if (!isDev) checkForUpdates()
     })
 }
 
@@ -222,3 +229,49 @@ ipcMain.on("quit", () => app.quit())
 ipcMain.on("log", (e, text) => {
     console.log(text)
 })
+
+
+// FUNCTION: check for updates automatically (on startup)
+function checkForUpdates() {
+
+    // updater setup
+    autoUpdater.autoDownload = false
+    autoUpdater.autoInstallOnAppQuit = false
+
+    autoUpdater.checkForUpdates() // check for updates
+
+    // auto download update (if available)
+    autoUpdater.on("update-available", () => {
+        autoUpdater.downloadUpdate()
+    })
+
+    // show update message box (when downloaded)
+    autoUpdater.on("update-downloaded", (updateInfo) => {
+
+        win.hide() // hide window
+
+        dialog.showMessageBox({
+            icon: updateIcon,
+            message: `New update available!   ( ${info.displayVersion}  ->  v${updateInfo.version} )`,
+            buttons: ["Install", "Not now"],
+            noLink: true,
+            defaultId: 0,
+            cancelId: 1
+
+        }).then(message => {
+
+            if (message.response === 1) {
+                win.show() // reshow window
+            }
+
+            if (message.response === 0) {
+                autoUpdater.quitAndInstall() // quit and install update
+            }
+        })
+    })
+
+    // throw updater errors
+    autoUpdater.on("error", (error) => {
+        dialog.showErrorBox(`${info.displayName} UPDATER ERROR`, error)
+    })
+}

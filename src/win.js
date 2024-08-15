@@ -151,7 +151,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     code.innerText = generateTOTP(accountSelect.value) // generate new code
 
                     ipcRenderer.send("saveSelectedOption", accountSelect.value) // IPC: send "saveSelectedOption" event
-
                 }
 
             }, 1000);
