@@ -22,13 +22,15 @@
 <br>
 
 ## WHAT IS 2FA?
-Two-Factor Authentication (2FA) is security method that requires two distinct forms of identification to access a websites (for example) and you can enable it in "Privacy and Security" section of your accounts.
-Usually, websites you want to access send you a 6-digit code via email or phone messages, but they often give you the opportunity to increase your account security level by enabling 2FA, using a third-party app (like **QuickAuth**) which generates a new code every 30s for each stored account.
+<ins>**Two-Factor Authentication**</ins> (2FA) is a strong <ins>**security method**</ins> that requires two distinct forms of identification to access a websites (for example) and you can enable it in "Privacy and Security" section of your accounts. <br>
+Usually, websites you want to access send you a <ins>**6-digit code**</ins> via email or phone messages, but they often give you the opportunity to increase your account security level by enabling 2FA, using a <ins>**third-party app**</ins> (like **QuickAuth**) which generates a <ins>**new code every 30s**</ins> for each stored account.
 
-> This "code" is called One Time Password (OTP) or Token in technical jargon
+> The "code" is called One Time Password (OTP) or Token in technical jargon
 
-2FA apps require a secret key to generate OTP and every website provides you with one in the form of a QR code or a string of letters and numbers.
-QuickAuth can only accept secret-keys in string form (QR code scanner feature is under development...)
+2FA apps require a <ins>**secret-key**</ins> to generate OTP and every website provides you with one in the form of a <ins>**QR code**</ins> or a <ins>**string**</ins> of letters and numbers.
+
+> [!NOTE]
+> **QuickAuth** can only accept secret-keys in string form (QR code scanner feature is under development...)
 
 <br>
 
