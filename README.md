@@ -28,7 +28,7 @@ Usually, websites you want to access send you a <ins>**6-digit code**</ins> via 
 
 Below, an example of how to get a secret-key (Github):
 
-![example](https://github.com/JoSimon05/QuickAuth/blob/Latest/.github/github-example.mp4)
+![example](https://github.com/JoSimon05/QuickAuth/blob/Latest/.github/example.gif)
 
 <br>
 
