@@ -6,7 +6,7 @@
 
 <br>
 
-> **A minimal 2FA Authenticator that generate OTPs to easily login to your accounts**
+> **A minimal 2FA Authenticator that generate OTPs to easily access your accounts**
 
 !
 !
@@ -40,3 +40,13 @@ All account secret-keys are stored inside a local database, sorted alphabeticall
     }
 ]
 ```
+
+<br>
+
+## WHAT IS 2FA?
+Two-Factor Authentication (2FA) is an identity and access management security method that requires two forms of identification to access resources and data.
+
+## HOW TO GET A SECRET-KEY?
+When you enabled Two-Factor Authentication (2FA) to prote
+
+
