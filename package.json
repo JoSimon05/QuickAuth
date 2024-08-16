@@ -9,6 +9,14 @@
   "description": "Get your OTPs!",
   "author": "Jo",
   "license": "UNLICENSED",
+  "homepage": "https://github.com/JoSimon05/QuickAuth#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JoSimon05/QuickAuth"
+  },
+  "publish": [
+    "github"
+  ],
   "main": "main.js",
   "scripts": {
     "start": "electron .",
