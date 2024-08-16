@@ -8,18 +8,12 @@
 
 > **A minimal 2FA Authenticator that generate OTPs to easily access your accounts**
 
-!
-!
-!
-!
+![app1](https://github.com/JoSimon05/QuickAuth/blob/Latest/.github/app1.png)
+![app2](https://github.com/JoSimon05/QuickAuth/blob/Latest/.github/app2.png)
+![app3](https://github.com/JoSimon05/QuickAuth/blob/Latest/.github/app3.png)
+![app4](https://github.com/JoSimon05/QuickAuth/blob/Latest/.github/app4.png)
 
-<br>
-
-## DEMO
-
-!
-
-<br>
+<!-- ## DEMO -->
 
 ## WHAT IS 2FA?
 <ins>**Two-Factor Authentication**</ins> (2FA) is a strong <ins>**security method**</ins> that requires two distinct forms of identification to access a websites (for example) and you can enable it in "Privacy and Security" section of your accounts. <br>
@@ -54,4 +48,35 @@ All account secret-keys are stored inside a local database, sorted alphabeticall
 ]
 ```
 
+<br>
+
+## UPDATES
+Updates are automatically checked and downloaded on startup, then you can choose wheter to install them immediately or at the next startup.
+
+> [!NOTE]
+> Even if you install new versions of the application, you won't lose your [stored data](https://github.com/JoSimon05/QuickAuth?tab=readme-ov-file#local-saves)
+
+<br>
+
+## USER-FRIENDLY
+...
+
+<br>
+
+# Try QuickAuth!
+**Check [Releases section](https://github.com/JoSimon05/QuickAuth/releases) and download the latest version available.**
+
+> You just need to download this file:&nbsp; **QuickAuth_{version}_setup.exe**
+
+> [!WARNING]
+> Before installation by *installer.exe*, the system antivirus could show a security alert. DON'T WORRY! \
+> You just need to click on "**More info**"
+> 
+> ![alert1](https://github.com/JoSimon05/POST-IT/blob/Latest/.github/installation1.png)
+> 
+> finally, click on the button "**Run anyway**" that appears next.
+> 
+> ![alert2](https://github.com/JoSimon05/POST-IT/blob/Latest/.github/installation2.png)
+>
+> > That's because *authentication certificate* for native applications is missing yet (It's not that cheap...)
 
