@@ -101,7 +101,7 @@ checkDataStructure() // check data file structure
 
 
 // about icons
-const logo = nativeImage.createFromPath(path.join(__dirname, "icons", "logo.ico"))
+const logo = nativeImage.createFromPath(path.join(__dirname, "icons", "taskbar.ico"))
 const updateIcon = nativeImage.createFromPath(path.join(__dirname, "icons", "update.ico"))
 
 // about window
