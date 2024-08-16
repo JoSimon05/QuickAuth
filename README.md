@@ -26,10 +26,15 @@ Usually, websites you want to access send you a <ins>**6-digit code**</ins> via 
 > [!NOTE]
 > **QuickAuth** can only accept secret-keys in string form (QR code scanner feature is under development...)
 
+Below, an example of how to get a secret-key (Github):
+
+![example](https://github.com/JoSimon05/QuickAuth/blob/Latest/.github/github-example.mp4)
+
 <br>
 
 ## LOCAL STORAGE
-All account secret-keys are stored inside a local database, sorted alphabetically (by name) and reloaded on application startup.
+All account secret-keys are stored inside a local database, sorted alphabetically (by name) and reloaded on application startup. <br>
+This allows you to use the app even offline and keep your data safe.
 
 ```json
 "accounts": [
@@ -59,7 +64,7 @@ Updates are automatically checked and downloaded on startup, then you can choose
 <br>
 
 ## USER-FRIENDLY
-...
+**QuickAuth** has been created to be as user-friendly as possible, It's simple to use and It allows you to access your accounts very quickly.
 
 <br>
 
@@ -67,6 +72,8 @@ Updates are automatically checked and downloaded on startup, then you can choose
 **Check [Releases section](https://github.com/JoSimon05/QuickAuth/releases) and download the latest version available.**
 
 > You just need to download this file:&nbsp; **QuickAuth_{version}_setup.exe**
+
+<br>
 
 > [!WARNING]
 > Before installation by *installer.exe*, the system antivirus could show a security alert. DON'T WORRY! \
@@ -79,4 +86,11 @@ Updates are automatically checked and downloaded on startup, then you can choose
 > ![alert2](https://github.com/JoSimon05/POST-IT/blob/Latest/.github/installation2.png)
 >
 > > That's because *authentication certificate* for native applications is missing yet (It's not that cheap...)
+
+<br>
+
+## CREDITS (libraries)
+[**speakeasy**](https://www.npmjs.com/package/speakeasy) &nbsp;-&nbsp; generates and verifies OTPs for 2FA
+
+[**electron**](https://www.electronjs.org/) &nbsp;/&nbsp; [**electron-builder**](https://www.electron.build/index.html) &nbsp;/&nbsp; [**electron-updater**](https://www.electron.build/auto-update.html) &nbsp;-&nbsp; make the application functional and updatable
 
