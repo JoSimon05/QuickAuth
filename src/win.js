@@ -395,7 +395,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!isValid) {
                 generateTOTP() // repeat if invalid
 
-            } else return "123456"
+            } else return code
 
 
         } else {
