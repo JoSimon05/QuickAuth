@@ -8,10 +8,7 @@
 
 > **A minimal 2FA Authenticator that generate OTPs to easily access your accounts**
 
-![app1](https://github.com/JoSimon05/QuickAuth/blob/Latest/.github/app1.png)
-![app2](https://github.com/JoSimon05/QuickAuth/blob/Latest/.github/app2.png)
-![app3](https://github.com/JoSimon05/QuickAuth/blob/Latest/.github/app3.png)
-![app4](https://github.com/JoSimon05/QuickAuth/blob/Latest/.github/app4.png)
+![app1](https://github.com/JoSimon05/QuickAuth/blob/Latest/.github/app1.png)![app2](https://github.com/JoSimon05/QuickAuth/blob/Latest/.github/app2.png)![app3](https://github.com/JoSimon05/QuickAuth/blob/Latest/.github/app3.png)![app4](https://github.com/JoSimon05/QuickAuth/blob/Latest/.github/app4.png)
 
 <!-- ## DEMO -->
 <br>
