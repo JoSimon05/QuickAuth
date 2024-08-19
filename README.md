@@ -14,6 +14,7 @@
 ![app4](https://github.com/JoSimon05/QuickAuth/blob/Latest/.github/app4.png)
 
 <!-- ## DEMO -->
+<br>
 
 ## WHAT IS 2FA?
 <ins>**Two-Factor Authentication**</ins> (2FA) is a strong <ins>**security method**</ins> that requires two distinct forms of identification to access a websites (for example) and you can enable it in "Privacy and Security" section of your accounts. <br>
