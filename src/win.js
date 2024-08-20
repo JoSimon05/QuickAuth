@@ -248,7 +248,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     deleteButton.addEventListener("mouseleave", () => {
 
-        if (!isSelectOpen && document.activeElement !== deleteButton) {
+        if (!isSelectOpen) {
             message.innerText = ""
 
             deleteButton.style.backgroundColor = "#eee"
@@ -308,6 +308,8 @@ document.addEventListener("DOMContentLoaded", () => {
             isKeyDown = true
 
             if (!isSelectOpen && document.activeElement === deleteButton && (e.key === "Enter" || e.key == " ")) {
+                deleteButton.style.backgroundColor = "red"
+
                 deleteAccount()
             }
         }
@@ -319,6 +321,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!isSelectOpen && document.activeElement === deleteButton && (e.key === "Enter" || e.key == " ")) {
             message.innerText = "Delete..."
 
+            deleteButton.style.backgroundColor = "#eee"
             deleteBar.style.transition = "none"
             deleteBar.style.width = "0"
 

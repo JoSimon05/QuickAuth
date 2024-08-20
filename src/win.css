@@ -228,7 +228,7 @@ button:focus {
     width: 138px;
     height: fit-content;
     min-height: 25px;
-    max-height: 82px;
+    max-height: 83px;
 
     position: absolute;
     z-index: 999;
