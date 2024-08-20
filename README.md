@@ -67,7 +67,7 @@ Updates are automatically checked and downloaded on startup, then you can choose
 <br>
 
 # Try QuickAuth!
-**Check [Releases section](https://github.com/JoSimon05/QuickAuth/releases) and download the latest version available.**
+**Check [Releases](https://github.com/JoSimon05/QuickAuth/releases) section and download the latest version available.**
 
 > You just need to download this file:&nbsp; **QuickAuth_{version}_setup.exe**
 
@@ -85,9 +85,7 @@ Updates are automatically checked and downloaded on startup, then you can choose
 >
 > > That's because *authentication certificate* for native applications is missing yet (It's not that cheap...)
 
-<br>
-
-Please report any kind of problem or bug in the [Issues section](https://github.com/JoSimon05/QuickAuth/issues).
+#### Please report any kind of problem or bug in the [Issues](https://github.com/JoSimon05/QuickAuth/issues) section.
 
 <br>
 
