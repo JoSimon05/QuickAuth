@@ -10,7 +10,7 @@
 <!--
 ![app1](https://github.com/JoSimon05/QuickAuth/blob/Latest/.github/app1.png)![app2](https://github.com/JoSimon05/QuickAuth/blob/Latest/.github/app2.png)![app3](https://github.com/JoSimon05/QuickAuth/blob/Latest/.github/app3.png)![app4](https://github.com/JoSimon05/QuickAuth/blob/Latest/.github/app4.png)
 -->
-<img src="https://github.com/JoSimon05/QuickAuth/blob/Latest/.github/app1.png" width="207"/> <img src="https://github.com/JoSimon05/QuickAuth/blob/Latest/.github/app2.png" width="207"/> <img src="https://github.com/JoSimon05/QuickAuth/blob/Latest/.github/app3.png" width="207"/> <img src="https://github.com/JoSimon05/QuickAuth/blob/Latest/.github/app4.png" width="207"/>
+<img src="https://github.com/JoSimon05/QuickAuth/blob/Latest/.github/app1.png" width="206"/> <img src="https://github.com/JoSimon05/QuickAuth/blob/Latest/.github/app2.png" width="206"/> <img src="https://github.com/JoSimon05/QuickAuth/blob/Latest/.github/app3.png" width="206"/> <img src="https://github.com/JoSimon05/QuickAuth/blob/Latest/.github/app4.png" width="206"/>
 
 <br>
 
