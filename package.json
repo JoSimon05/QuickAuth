@@ -1,7 +1,7 @@
 {
   "info": {
     "displayName": "QuickAuth",
-    "displayVersion": "1.9",
+    "displayVersion": "1.0.0",
     "displayAppID": "QuickAuth"
   },
   "name": "quick-auth",
