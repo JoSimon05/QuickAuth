@@ -4,14 +4,7 @@
 ![framework](https://img.shields.io/badge/Framework-Electron-47848F?style=flat-square&labelColor=30363d)
 ![platform](https://img.shields.io/badge/Platform-Windows-0078d4?style=flat-square&labelColor=30363d)
 
-<br>
-
 > **A minimal 2FA Authenticator that generate OTPs to easily access your accounts**
-
-![app1](https://github.com/JoSimon05/QuickAuth/blob/Latest/.github/app1.png)
-![app2](https://github.com/JoSimon05/QuickAuth/blob/Latest/.github/app2.png)
-![app3](https://github.com/JoSimon05/QuickAuth/blob/Latest/.github/app3.png)
-![app4](https://github.com/JoSimon05/QuickAuth/blob/Latest/.github/app4.png)
 
 <br>
 
