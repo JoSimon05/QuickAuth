@@ -164,7 +164,7 @@ if (!instanceLock) {
             // correct selected option
             if (data.accounts.length != 0) {
 
-                if (!data.accounts.some(a => a["key"] === data.selected)) {
+                if (!data.accounts.some(account => account["key"] === data.selected)) {
                     data.selected = data.accounts[0].key
                 }
 
@@ -217,7 +217,7 @@ ipcMain.on("removeAccount", (e, key) => {
 
     checkDataFile()
 
-    const accountIndex = data.accounts.findIndex(a => a.key === key)
+    const accountIndex = data.accounts.findIndex(account => account.key === key)
     data.accounts.splice(accountIndex, 1)
 
     updateDataFile()

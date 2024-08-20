@@ -126,8 +126,13 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     })
 
+    // focus account select first
     setTimeout(() => {
-        accountSelect.focus() // focus account select first
+
+        const options = accountList.querySelectorAll(".account-option")
+
+        if (options.length > 0) accountSelect.focus()
+
     }, 50);
 
 
@@ -135,7 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener("keydown", (e) => {
 
         // select previous option
-        if (e.key === "ArrowUp" && isSelectOpen) {
+        if (isSelectOpen && e.key === "ArrowUp") {
             e.preventDefault()
 
             accountList.scrollTop -= 23
@@ -143,14 +148,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // select next option
-        if (e.key === "ArrowDown" && isSelectOpen) {
+        if (isSelectOpen && e.key === "ArrowDown") {
             e.preventDefault()
 
             accountList.scrollTop += 23
             document.activeElement.nextSibling.focus({ preventScroll: true })
         }
 
-        if (e.key === "Tab" && isSelectOpen) e.preventDefault() // prevent Tab select
+        if (isSelectOpen && e.key === "Tab") e.preventDefault() // prevent Tab select
     })
 
     accountList.addEventListener("wheel", (e) => {
@@ -276,7 +281,7 @@ document.addEventListener("DOMContentLoaded", () => {
     deleteButton.addEventListener("focus", () => {
 
         if (!isSelectOpen) {
-            message.innerText = "Delete..."
+            message.innerText = isPressed ? "Deleting..." : "Delete..."
 
             deleteButton.style.backgroundColor = "red"
 
@@ -325,7 +330,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // code text event
     code.addEventListener("click", () => {
 
-        if (isCode && !isSelectOpen) {
+        if (!isSelectOpen && isCode) {
             clipboard.writeText(code.textContent) // copy code
             message.innerText = "Copied!"
 
@@ -334,12 +339,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             timeoutID = setTimeout(() => {
 
-                if (
-                    message.innerText == "Copy..." ||
-                    message.innerText == "Add..." ||
-                    message.innerText == "Select Account..." ||
-                    message.innerText == "Delete..."
-                ) {
+                if (message.innerText == "Copy..." || message.innerText == "Add..." || message.innerText == "Select Account..." || message.innerText == "Delete...") {
                     clearTimeout(timeoutID)
 
                 } else message.innerText = ""
@@ -350,7 +350,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     code.addEventListener("mouseenter", () => {
 
-        if (isCode && !isSelectOpen) {
+        if (!isSelectOpen && isCode) {
             code.style.color = "#888"
             message.innerText = "Copy..."
         }
@@ -358,7 +358,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     code.addEventListener("mouseleave", () => {
 
-        if (isCode && !isSelectOpen) {
+        if (!isSelectOpen && isCode) {
             code.style.color = "#000"
 
             if (message.innerText == "Copy..." || message.innerText == "") {
@@ -389,7 +389,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     code.addEventListener("mousedown", () => {
 
-        if (isCode && !isSelectOpen) {
+        if (!isSelectOpen && isCode) {
             code.style.color = "#000"
             message.innerText = ""
         }
@@ -597,8 +597,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     optionToDelete.remove() // remove account option
 
-                    deleteBar.style.transition = "none"
                     deleteBar.style.width = "0"
+                    deleteBar.style.transition = "none"
 
                     message.innerText = "Delete..."
 

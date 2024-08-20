@@ -197,11 +197,7 @@ button:focus {
 
     cursor: pointer;
 }
-/*
-#add-button:hover {
-    background-color: #ccc;
-}
-*/
+
 #add-button:active {
     background-color: #eee;
 }
@@ -294,11 +290,6 @@ button:focus {
 
     cursor: pointer;
 }
-/*
-#delete-button:hover {
-    background-color: red;
-}
-*/
 
 
 #code-container {
