@@ -14,6 +14,7 @@
 ![app4](https://github.com/JoSimon05/QuickAuth/blob/Latest/.github/app4.png)
 
 <!-- ## DEMO -->
+<br>
 
 ## WHAT IS 2FA?
 <ins>**Two-Factor Authentication**</ins> (2FA) is a strong <ins>**security method**</ins> that requires two distinct forms of identification to access a websites (for example) and you can enable it in "Privacy and Security" section of your accounts. <br>
@@ -26,7 +27,7 @@ Usually, websites you want to access send you a <ins>**6-digit code**</ins> via 
 > [!NOTE]
 > **QuickAuth** can only accept secret-keys in string form (QR code scanner feature is under development...)
 
-Below, an example of how to get a secret-key (Github):
+Below, an example of how to get a secret-key on Github:
 
 ![example](https://github.com/JoSimon05/QuickAuth/blob/Latest/.github/example.gif)
 
