@@ -13,7 +13,11 @@
 ![app3](https://github.com/JoSimon05/QuickAuth/blob/Latest/.github/app3.png)
 ![app4](https://github.com/JoSimon05/QuickAuth/blob/Latest/.github/app4.png)
 
-<!-- ## DEMO -->
+<br>
+
+## DEMO
+![demo](https://github.com/JoSimon05/QuickAuth/blob/Latest/.github/demo.gif)
+
 <br>
 
 ## WHAT IS 2FA?
@@ -27,7 +31,9 @@ Usually, websites you want to access send you a <ins>**6-digit code**</ins> via 
 > [!NOTE]
 > **QuickAuth** can only accept secret-keys in string form (QR code scanner feature is under development...)
 
-Below, an example of how to get a secret-key on Github:
+<br>
+
+Here's an example of how to get a secret-key on Github:
 
 ![example](https://github.com/JoSimon05/QuickAuth/blob/Latest/.github/example.gif)
 
@@ -87,6 +93,10 @@ Updates are automatically checked and downloaded on startup, then you can choose
 > ![alert2](https://github.com/JoSimon05/POST-IT/blob/Latest/.github/installation2.png)
 >
 > > That's because *authentication certificate* for native applications is missing yet (It's not that cheap...)
+
+<br>
+
+Please report any kind of problem or bug in the [Issues section](https://github.com/JoSimon05/QuickAuth/issues).
 
 <br>
 
