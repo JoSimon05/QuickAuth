@@ -17,37 +17,30 @@ document.addEventListener("DOMContentLoaded", () => {
     const inputAlert = document.getElementById("input-alert")
 
     const accountSelect = document.getElementById("account-select")
+    const accountList = document.getElementById("account-list")
     const addButton = document.getElementById("add-button")
     const deleteButton = document.getElementById("delete-button")
 
     const deleteBar = document.getElementById("delete-bar")
     const code = document.getElementById("code")
 
-    let isCode
-    let selectedOption
+    let isSelectOpen
     let isMouseOver
     let isPressed
+    let isCode
     let timeoutID
+
+    let isKeyDown = false
 
 
     // close button events
     closeButton.addEventListener("click", () => ipcRenderer.send("quit")) // IPC: send "quit" event
 
 
-    // add button events
-    addButton.addEventListener("click", () => {
-        
-        // switch view
-        inputView.style.display = "block"
-        accountView.style.display = "none"
-
-        nameInput.focus()
-    })
-
-    // cancel button events
+    // cancel/done buttons and inputs events
     cancelButton.addEventListener("click", () => {
 
-        // switch view
+        // switch view to account
         inputView.style.display = "none"
         accountView.style.display = "block"
 
@@ -56,121 +49,283 @@ document.addEventListener("DOMContentLoaded", () => {
         keyInput.value = ""
     })
 
+    document.addEventListener("keydown", (e) => {
 
-    // done button and inputs events
+        if (e.key === "Escape") {
+
+            // switch view to account
+            inputView.style.display = "none"
+            accountView.style.display = "block"
+
+            // clear inputs
+            nameInput.value = ""
+            keyInput.value = ""
+        }
+    })
+
     doneButton.addEventListener("click", () => checkInput())
 
     nameInput.addEventListener("keydown", (e) => {
+
         if (e.key === "Enter") checkInput()
     })
 
     keyInput.addEventListener("keydown", (e) => {
+
         if (e.key === "Enter") checkInput()
     })
 
 
     // account select events
     accountSelect.addEventListener("mouseenter", () => {
-        message.innerText = "Select Account..."
+
+        const options = accountList.querySelectorAll(".account-option")
+
+        message.innerText = options.length > 0 ? "Select Account..." : "Add..."
     })
 
     accountSelect.addEventListener("mouseleave", () => {
         message.innerText = ""
     })
 
-    accountSelect.addEventListener("change", () => {
-        code.innerText = generateTOTP(accountSelect.value)
-        message.innerText = ""
+    accountSelect.addEventListener("focus", () => {
 
-        ipcRenderer.send("saveSelectedOption", accountSelect.value)
+        const options = accountList.querySelectorAll(".account-option")
+
+        message.innerText = options.length > 0 ? "Select Account..." : "Add..."
+    })
+
+    accountSelect.addEventListener("blur", () => {
+        message.innerText = ""
+    })
+
+    accountSelect.addEventListener("click", () => {
+
+        const options = Array.from(accountList.querySelectorAll(".account-option"))
+
+        if (options.length > 0) {
+
+            // show account list
+            addButton.tabIndex = "-1"
+            accountSelect.tabIndex = "-1"
+            deleteButton.tabIndex = "-1"
+
+            accountList.style.display = "block"
+            isSelectOpen = true
+
+            // focus selected option
+            options.find(option => option.value === accountSelect.value).focus()
+
+        } else {
+
+            // switch view to input
+            inputView.style.display = "block"
+            accountView.style.display = "none"
+
+            nameInput.focus()
+        }
+    })
+
+    setTimeout(() => {
+        accountSelect.focus() // focus account select first
+    }, 50);
+
+
+    // account list events (wheel and arrows)
+    document.addEventListener("keydown", (e) => {
+
+        // select previous option
+        if (e.key === "ArrowUp" && isSelectOpen) {
+            e.preventDefault()
+
+            accountList.scrollTop -= 23
+            document.activeElement.previousSibling.focus({ preventScroll: true })
+        }
+
+        // select next option
+        if (e.key === "ArrowDown" && isSelectOpen) {
+            e.preventDefault()
+
+            accountList.scrollTop += 23
+            document.activeElement.nextSibling.focus({ preventScroll: true })
+        }
+
+        if (e.key === "Tab" && isSelectOpen) e.preventDefault() // prevent Tab select
+    })
+
+    accountList.addEventListener("wheel", (e) => {
+
+        if (isSelectOpen) {
+            e.preventDefault()
+
+            // wheel up
+            if (e.deltaY < 0) {
+                accountList.scrollTop -= 23
+            }
+
+            // wheel down
+            if (e.deltaY > 0) {
+                accountList.scrollTop += 23
+            }
+        }
+    })
+
+    document.addEventListener("click", (e) => {
+
+        if (isSelectOpen && e.target != (accountSelect || accountList) && e.target.className != "account-option") {
+            accountList.style.display = "none"
+            isSelectOpen = false
+
+            addButton.tabIndex = "0"
+            accountSelect.tabIndex = "0"
+            deleteButton.tabIndex = "0"
+        }
     })
 
 
     // add button events
     addButton.addEventListener("mouseenter", () => {
-        message.innerText = "Add..."
+
+        if (!isSelectOpen) {
+            message.innerText = "Add..."
+            addButton.style.backgroundColor = "#ccc"
+        }
     })
 
     addButton.addEventListener("mouseleave", () => {
-        message.innerText = ""
+
+        if (!isSelectOpen) {
+            message.innerText = ""
+            addButton.style.backgroundColor = "#eee"
+        }
     })
 
-    addButton.addEventListener("mousedown", () => {
-        message.innerText = ""
+    addButton.addEventListener("focus", () => {
 
-        deleteBar.style.transition = "none"
-        deleteBar.style.width = "0"
+        if (!isSelectOpen) {
+            message.innerText = "Add..."
+            addButton.style.backgroundColor = "#ccc"
+        }
+    })
 
-        isMouseOver = false
+    addButton.addEventListener("blur", () => {
+
+        if (!isSelectOpen) {
+            message.innerText = ""
+            addButton.style.backgroundColor = "#eee"
+        }
+    })
+
+    addButton.addEventListener("click", () => {
+
+        if (!isSelectOpen) {
+
+            // switch view to input
+            inputView.style.display = "block"
+            accountView.style.display = "none"
+
+            nameInput.focus()
+        }
     })
 
 
     // delete button events
     deleteButton.addEventListener("mouseenter", () => {
-        message.innerText = "Delete..."
-        isMouseOver = true
+
+        if (!isSelectOpen) {
+            message.innerText = "Delete..."
+
+            deleteButton.style.backgroundColor = "red"
+
+            isMouseOver = true
+        }
     })
 
     deleteButton.addEventListener("mouseleave", () => {
-        message.innerText = ""
 
-        deleteBar.style.transition = "none"
-        deleteBar.style.width = "0"
+        if (!isSelectOpen && document.activeElement !== deleteButton) {
+            message.innerText = ""
 
-        isMouseOver = false
+            deleteButton.style.backgroundColor = "#eee"
+            deleteBar.style.transition = "none"
+            deleteBar.style.width = "0"
+
+            isMouseOver = false
+        }
     })
 
     deleteButton.addEventListener("mousedown", () => {
 
-        if (accountSelect.options.length > 0) {
-
-            message.innerText = "Deleting..."
-
-            deleteBar.style.transition = "width linear 1s"
-            deleteBar.style.width = "100%"
-
-            isPressed = true
-
-            if (timeoutID) clearTimeout(timeoutID)
-
-            timeoutID = setTimeout(() => {
-
-                if (isPressed && isMouseOver) {
-
-                    ipcRenderer.send("removeAccount", accountSelect.value) // IPC: send "removeAccount" event
-
-                    // remove account option
-                    const options = Array.from(accountSelect.querySelectorAll("option"))
-                    options.find(o => o.value === accountSelect.value).remove()
-
-                    deleteBar.style.transition = "none"
-                    deleteBar.style.width = "0"
-
-                    message.innerText = "Delete..."
-
-                    code.innerText = generateTOTP(accountSelect.value) // generate new code
-
-                    ipcRenderer.send("saveSelectedOption", accountSelect.value) // IPC: send "saveSelectedOption" event
-                }
-
-            }, 1000);
+        if (!isSelectOpen) {
+            deleteAccount()
         }
     })
 
     deleteButton.addEventListener("mouseup", () => {
-        message.innerText = "Delete..."
 
-        deleteBar.style.transition = "none"
-        deleteBar.style.width = "0"
+        if (!isSelectOpen) {
+            message.innerText = "Delete..."
 
-        isPressed = false
+            deleteBar.style.transition = "none"
+            deleteBar.style.width = "0"
+
+            isPressed = false
+        }
+    })
+
+    deleteButton.addEventListener("focus", () => {
+
+        if (!isSelectOpen) {
+            message.innerText = "Delete..."
+
+            deleteButton.style.backgroundColor = "red"
+
+            isMouseOver = true
+        }
+    })
+
+    deleteButton.addEventListener("blur", () => {
+
+        if (!isSelectOpen) {
+            message.innerText = ""
+
+            deleteButton.style.backgroundColor = "#eee"
+            deleteBar.style.transition = "none"
+            deleteBar.style.width = "0"
+
+            isMouseOver = false
+        }
+    })
+
+    document.addEventListener("keydown", (e) => {
+
+        if (!isKeyDown) {
+            isKeyDown = true
+
+            if (!isSelectOpen && document.activeElement === deleteButton && (e.key === "Enter" || e.key == " ")) {
+                deleteAccount()
+            }
+        }
+    })
+
+    document.addEventListener("keyup", (e) => {
+        isKeyDown = false
+
+        if (!isSelectOpen && document.activeElement === deleteButton && (e.key === "Enter" || e.key == " ")) {
+            message.innerText = "Delete..."
+
+            deleteBar.style.transition = "none"
+            deleteBar.style.width = "0"
+
+            isPressed = false
+        }
     })
 
 
     // code text event
     code.addEventListener("click", () => {
 
-        if (isCode) {
+        if (isCode && !isSelectOpen) {
             clipboard.writeText(code.textContent) // copy code
             message.innerText = "Copied!"
 
@@ -195,7 +350,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     code.addEventListener("mouseenter", () => {
 
-        if (isCode) {
+        if (isCode && !isSelectOpen) {
             code.style.color = "#888"
             message.innerText = "Copy..."
         }
@@ -203,7 +358,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     code.addEventListener("mouseleave", () => {
 
-        if (isCode) {
+        if (isCode && !isSelectOpen) {
             code.style.color = "#000"
 
             if (message.innerText == "Copy..." || message.innerText == "") {
@@ -234,56 +389,59 @@ document.addEventListener("DOMContentLoaded", () => {
 
     code.addEventListener("mousedown", () => {
 
-        if (isCode) {
+        if (isCode && !isSelectOpen) {
             code.style.color = "#000"
             message.innerText = ""
         }
     })
 
 
+    // check for new code every 500ms
+    setInterval(() => {
+        code.innerText = generateTOTP(accountSelect.value)
+    }, 500);
+
+
     // IPC: sort accounts alphabetically
     ipcRenderer.on("sortList", (e, data) => {
 
-        accountSelect.innerHTML = "" // remove all options
+        accountList.innerHTML = "" // remove all options
 
         // recreate options
-        data.accounts.forEach(a => {
+        data.accounts.forEach(account => {
 
-            const newOption = document.createElement("option")
+            const newOption = document.createElement("button")
 
-            newOption.text = a.name
-            newOption.value = a.key
+            newOption.className = "account-option"
+            newOption.textContent = account.name
+            newOption.value = account.key
 
-            accountSelect.appendChild(newOption)
+            optionEvents(newOption)
+
+            accountList.appendChild(newOption)
         })
 
         // select last option
-        const options = Array.from(accountSelect.querySelectorAll("option"))
+        const options = Array.from(accountList.querySelectorAll(".account-option"))
 
         if (data.startup) {
-            options.find(o => o.value === data.selected).selected = true
 
-        } else {
-            options.find(o => o.value === selectedOption).selected = true
+            const option = options.find(option => option.value === data.selected)
+
+            accountSelect.textContent = option.textContent
+            accountSelect.value = option.value
         }
 
-        // generate code every 30s
+        // generate new code
         code.innerText = generateTOTP(accountSelect.value)
 
-        setInterval(() => {
-            code.innerText = generateTOTP(accountSelect.value)
-        }, 500);
-
-        // switch view
+        // switch view to account
         inputView.style.display = "none"
         accountView.style.display = "block"
 
         // clear inputs
         nameInput.value = ""
         keyInput.value = ""
-
-        // IPC: send "saveSelectedOption" event
-        ipcRenderer.send("saveSelectedOption", accountSelect.value)
     })
 
 
@@ -302,13 +460,13 @@ document.addEventListener("DOMContentLoaded", () => {
             return keyInput.focus()
         }
 
-        const accounts = accountSelect.querySelectorAll("option")
+        const accounts = accountList.querySelectorAll(".account-option")
 
         let doesExists = false
 
         for (let i = 0; i < accounts.length; i++) {
 
-            if (nameInput.value == accounts[i].text) {
+            if (nameInput.value == accounts[i].textContent) {
                 doesExists = true
                 showAlert("Name already in use!", "name")
                 break
@@ -329,18 +487,24 @@ document.addEventListener("DOMContentLoaded", () => {
     // FUNCTION: set new account option
     function setAccount(name, key) {
 
-        const newOption = document.createElement("option")
+        const newOption = document.createElement("button")
 
-        newOption.text = name
+        newOption.className = "account-option"
+        newOption.textContent = name
         newOption.value = key
 
-        accountSelect.appendChild(newOption)
-        selectedOption = key
+        optionEvents(newOption)
+
+        accountList.appendChild(newOption)
+
+        accountSelect.textContent = name
+        accountSelect.value = key
 
         code.innerText = generateTOTP(accountSelect.value) // generate new code
 
-        // IPC: send "setAccount" event
+        // IPC: send "setAccount" and "saveSelectedOption" events
         ipcRenderer.send("setAccount", { name: nameInput.value, key: keyInput.value })
+        ipcRenderer.send("saveSelectedOption", accountSelect.value)
     }
 
     // FUNCTION: show alert if parameters already exist
@@ -356,6 +520,7 @@ document.addEventListener("DOMContentLoaded", () => {
         keyInput.disabled = true
 
         setTimeout(() => {
+
             cancelButton.style.display = "block"
             doneButton.style.display = "block"
             inputAlert.style.display = "none"
@@ -364,16 +529,93 @@ document.addEventListener("DOMContentLoaded", () => {
 
             nameInput.disabled = false
             keyInput.disabled = false
-    
+
             if (input == "name") nameInput.focus()
             if (input == "key") keyInput.focus()
 
         }, 1000);
     }
 
+    // FUNCTION: set events to new account options
+    function optionEvents(element) {
+
+        // account options events
+        element.addEventListener("mouseenter", () => {
+            element.focus({ preventScroll: true })
+        })
+
+        element.addEventListener("click", () => {
+
+            accountSelect.textContent = element.textContent
+            accountSelect.value = element.value
+
+            accountList.style.display = "none"
+            isSelectOpen = false
+
+            addButton.tabIndex = "0"
+            accountSelect.tabIndex = "0"
+            deleteButton.tabIndex = "0"
+
+            code.innerText = generateTOTP(accountSelect.value) // generate new code
+
+            // IPC: send "saveSelectedOption" event
+            ipcRenderer.send("saveSelectedOption", accountSelect.value)
+        })
+    }
+
+    function deleteAccount() {
+
+        const options = Array.from(accountList.querySelectorAll(".account-option"))
+
+        if (options.length > 0) {
+            message.innerText = "Deleting..."
+
+            deleteBar.style.transition = "width linear 1s"
+            deleteBar.style.width = "100%"
+
+            isPressed = true
+
+            if (timeoutID) clearTimeout(timeoutID)
+
+            timeoutID = setTimeout(() => {
+
+                if (isPressed && isMouseOver) {
+
+                    ipcRenderer.send("removeAccount", accountSelect.value) // IPC: send "removeAccount" event
+
+                    const optionToDelete = options.find(option => option.value === accountSelect.value)
+
+                    // update account select
+                    if (options.length > 1) {
+                        accountSelect.textContent = optionToDelete.previousSibling ? optionToDelete.previousSibling.textContent : optionToDelete.nextSibling.textContent
+                        accountSelect.value = optionToDelete.previousSibling ? optionToDelete.previousSibling.value : optionToDelete.nextSibling.value
+
+                    } else {
+                        accountSelect.textContent = ""
+                        accountSelect.value = ""
+                    }
+
+                    optionToDelete.remove() // remove account option
+
+                    deleteBar.style.transition = "none"
+                    deleteBar.style.width = "0"
+
+                    message.innerText = "Delete..."
+
+                    deleteButton.blur()
+
+                    code.innerText = generateTOTP(accountSelect.value) // generate new code
+
+                    ipcRenderer.send("saveSelectedOption", accountSelect.value) // IPC: send "saveSelectedOption" event
+                }
+
+            }, 1000);
+        }
+    }
+
     // FUNCTION: generate 30s timed otp
     function generateTOTP(setupKey) {
-        
+
         if (setupKey != "") {
             isCode = true
 
@@ -393,10 +635,9 @@ document.addEventListener("DOMContentLoaded", () => {
             })
 
             if (!isValid) {
-                generateTOTP() // repeat if invalid
+                return generateTOTP() // repeat if invalid
 
             } else return code
-
 
         } else {
             isCode = false

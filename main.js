@@ -79,8 +79,8 @@ function checkDataStructure() {
             accounts: lastAccounts ? lastAccounts : defaultData.accounts
         }
 
-        // update data file
         data = lastData
+
         updateDataFile()
 
         if (isDev) console.log(`'${dataFile}' file updated`)
@@ -101,7 +101,7 @@ checkDataStructure() // check data file structure
 
 
 // about icons
-const logo = nativeImage.createFromPath(path.join(__dirname, "icons", "taskbar.ico"))
+const logo = nativeImage.createFromPath(path.join(__dirname, "icons", "logo.ico"))
 const updateIcon = nativeImage.createFromPath(path.join(__dirname, "icons", "update.ico"))
 
 // about window
@@ -246,15 +246,10 @@ ipcMain.on("log", (e, text) => {
 function checkForUpdates() {
 
     // updater setup
-    autoUpdater.autoDownload = false
+    autoUpdater.autoDownload = true
     autoUpdater.autoInstallOnAppQuit = false
 
     autoUpdater.checkForUpdates() // check for updates
-
-    // auto download update (if available)
-    autoUpdater.on("update-available", () => {
-        autoUpdater.downloadUpdate()
-    })
 
     // show update message box (when downloaded)
     autoUpdater.on("update-downloaded", (updateInfo) => {
@@ -263,7 +258,7 @@ function checkForUpdates() {
 
         dialog.showMessageBox({
             icon: updateIcon,
-            message: `New update available!   ( ${info.displayVersion}  ->  v${updateInfo.version} )`,
+            message: `New update available!   ( ${info.displayVersion} )  ->  ( v${updateInfo.version} )`,
             buttons: ["Install", "Not now"],
             noLink: true,
             defaultId: 0,
@@ -271,13 +266,10 @@ function checkForUpdates() {
 
         }).then(message => {
 
-            if (message.response === 1) {
-                win.show() // reshow window
-            }
-
             if (message.response === 0) {
                 autoUpdater.quitAndInstall() // quit and install update
-            }
+
+            } else win.show() // reshow window
         })
     })
 
