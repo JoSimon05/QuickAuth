@@ -8,6 +8,7 @@
 > **A minimal 2FA Authenticator that generate OTPs to easily access your accounts**
 
 ![demo](https://github.com/JoSimon05/QuickAuth/blob/Latest/.github/demo.gif)
+> *Demo relative to v1.0.0*
 
 <br>
 
