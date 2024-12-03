@@ -1,11 +1,11 @@
 {
   "info": {
     "displayName": "QuickAuth",
-    "displayVersion": "1.0.0",
+    "displayVersion": "v1.1.0",
     "displayAppID": "QuickAuth"
   },
   "name": "quick-auth",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Get your OTPs!",
   "author": "Jo",
   "license": "UNLICENSED",

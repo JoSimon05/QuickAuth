@@ -314,8 +314,12 @@ button:focus {
 
 #code {
     margin: 10px;
+    padding: 2px;
 
     position: relative;
+
+    background-color: transparent;
+    border: none;
 
     font-size: 35px;
     font-weight: bold;

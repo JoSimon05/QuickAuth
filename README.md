@@ -1,6 +1,6 @@
 # <img src="https://github.com/JoSimon05/QuickAuth/blob/Latest/icons/logo.ico" width="32"/> QuickAuth
 
-[![release](https://img.shields.io/badge/dynamic/json?url=https://github.com/JoSimon05/QuickAuth/blob/Latest/package.json&query=version&style=flat-square&label=Latest&labelColor=30363d&color=2ea043)](https://github.com/JoSimon05/QuickAuth/releases) 
+[![release](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/JoSimon05/QuickAuth/Latest/package.json&query=version&style=flat-square&label=Latest&labelColor=30363d&color=2ea043)](https://github.com/JoSimon05/QuickAuth/releases) 
 ![framework](https://img.shields.io/badge/Framework-Electron-47848F?style=flat-square&labelColor=30363d)
 ![platform](https://img.shields.io/badge/Platform-Windows-0078d4?style=flat-square&labelColor=30363d)
 
@@ -67,7 +67,7 @@ Updates are automatically checked and downloaded on startup, then you can choose
 <br>
 
 # Try QuickAuth!
-**Check [Releases section](https://github.com/JoSimon05/QuickAuth/releases) and download the latest version available.**
+**Check [Releases](https://github.com/JoSimon05/QuickAuth/releases) section and download the latest version available.**
 
 > You just need to download this file:&nbsp; **QuickAuth_{version}_setup.exe**
 
@@ -85,9 +85,7 @@ Updates are automatically checked and downloaded on startup, then you can choose
 >
 > > That's because *authentication certificate* for native applications is missing yet (It's not that cheap...)
 
-<br>
-
-Please report any kind of problem or bug in the [Issues section](https://github.com/JoSimon05/QuickAuth/issues).
+#### Please report any kind of problem or bug in the [Issues](https://github.com/JoSimon05/QuickAuth/issues) section.
 
 <br>
 

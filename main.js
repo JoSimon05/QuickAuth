@@ -3,7 +3,7 @@ const { app, BrowserWindow, dialog, nativeImage, ipcMain } = require("electron")
 const { autoUpdater } = require("electron-updater")
 const fs = require("fs")
 const path = require("path")
-const { name, info, version } = require("./package.json")
+const { name, info } = require("./package.json")
 
 
 // about environment
@@ -181,7 +181,7 @@ if (!instanceLock) {
         })
 
         // prevent system menu
-        const WM_INITMENU = 0x0116;
+        const WM_INITMENU = 0x0116
         win.hookWindowMessage(WM_INITMENU, () => {
             win.setEnabled(false)
             win.setEnabled(true)

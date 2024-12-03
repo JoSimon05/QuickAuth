@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let timeoutID
 
     let isKeyDown = false
+    let lastCode
 
 
     // close button events
@@ -133,7 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (options.length > 0) accountSelect.focus()
 
-    }, 50);
+    }, 50)
 
 
     // account list events (wheel and arrows)
@@ -331,26 +332,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // code text event
-    code.addEventListener("click", () => {
-
-        if (!isSelectOpen && isCode) {
-            clipboard.writeText(code.textContent) // copy code
-            message.innerText = "Copied!"
-
-            // overwrite current timeout
-            if (timeoutID) clearTimeout(timeoutID)
-
-            timeoutID = setTimeout(() => {
-
-                if (message.innerText == "Copy..." || message.innerText == "Add..." || message.innerText == "Select Account..." || message.innerText == "Delete...") {
-                    clearTimeout(timeoutID)
-
-                } else message.innerText = ""
-
-            }, 3000)
-        }
-    })
-
     code.addEventListener("mouseenter", () => {
 
         if (!isSelectOpen && isCode) {
@@ -398,11 +379,97 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     })
 
+    code.addEventListener("focus", () => {
 
-    // check for new code every 500ms
+        if (!isSelectOpen && isCode) {
+            message.innerText = "Copy..."
+        }
+    })
+
+    code.addEventListener("blur", () => {
+
+        if (!isSelectOpen && isCode) {
+
+            if (message.innerText == "Copy..." || message.innerText == "") {
+                message.innerText = ""
+
+            } else {
+                message.innerText = "Copied!"
+
+                // overwrite current timeout
+                if (timeoutID) clearTimeout(timeoutID)
+
+                timeoutID = setTimeout(() => {
+
+                    if (
+                        message.innerText == "Copy..." ||
+                        message.innerText == "Add..." ||
+                        message.innerText == "Select Account..." ||
+                        message.innerText == "Delete..."
+                    ) {
+                        clearTimeout(timeoutID)
+
+                    } else message.innerText = ""
+
+                }, 3000)
+            }
+        }
+    })
+
+    code.addEventListener("click", () => {
+
+        if (!isSelectOpen && isCode) {
+            clipboard.writeText(code.textContent) // copy code
+            message.innerText = "Copied!"
+
+            // overwrite current timeout
+            if (timeoutID) clearTimeout(timeoutID)
+
+            timeoutID = setTimeout(() => {
+
+                if (message.innerText == "Copy..." || message.innerText == "Add..." || message.innerText == "Select Account..." || message.innerText == "Delete...") {
+                    clearTimeout(timeoutID)
+
+                } else message.innerText = ""
+
+            }, 3000)
+        }
+    })
+
+    code.addEventListener("keydown", (e) => {
+
+        if (e.ctrlKey && e.key === "c") {
+            code.dispatchEvent(new Event("click"))
+        }
+    })
+
+
+    // check for new code every 100ms
     setInterval(() => {
+
         code.innerText = generateTOTP(accountSelect.value)
-    }, 500);
+
+        if (!lastCode || lastCode !== code.innerText) {
+
+            clipboard.writeText(code.textContent) // auto-copy code
+            message.innerText = "Copied!"
+
+            // overwrite current timeout
+            if (timeoutID) clearTimeout(timeoutID)
+
+            timeoutID = setTimeout(() => {
+
+                if (message.innerText == "Copy..." || message.innerText == "Add..." || message.innerText == "Select Account..." || message.innerText == "Delete...") {
+                    clearTimeout(timeoutID)
+
+                } else message.innerText = ""
+
+            }, 3000)
+            
+            lastCode = code.innerText
+        }
+
+    }, 100)
 
 
     // IPC: sort accounts alphabetically
@@ -536,7 +603,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (input == "name") nameInput.focus()
             if (input == "key") keyInput.focus()
 
-        }, 1000);
+        }, 1000)
     }
 
     // FUNCTION: set events to new account options
@@ -612,7 +679,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     ipcRenderer.send("saveSelectedOption", accountSelect.value) // IPC: send "saveSelectedOption" event
                 }
 
-            }, 1000);
+            }, 1000)
         }
     }
 
